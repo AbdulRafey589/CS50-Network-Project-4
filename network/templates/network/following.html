@@ -1,0 +1,33 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <form>
+        {% csrf_token %}
+    </form>
+<div class="posts">
+    {% for post in posts %}
+        <a href="{% url 'profile' post.user.id %}" style="color:black;">
+            <h6>{{ post.user }}</h6>
+        </a>
+
+        <p>{{ post.post }}</p>
+        <p class="line">{{ post.created_at|date:"M j, Y, g:i a" }}</p>
+
+        <button
+            class="like-button {% if post.liked_by_user %}liked{% endif %}"
+            data-post-id="{{ post.id }}"
+        >
+            <i class="bi {% if post.liked_by_user %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+            <span class="like-count" data-post-id="{{ post.id }}">
+                {{ post.like_count }}
+            </span>
+        </button>
+
+        <div class="divider"></div>
+    {% endfor %}
+</div>
+
+
+<script src="{% static 'network/likes.js' %}"></script>
+{% endblock %}
