@@ -14,11 +14,11 @@ const followers = document.querySelector("#follow");
         .then(data =>{
             if(data.followed){
                 followers.innerHTML = 'Unfollow'
-                followers.classList.replace("btn-primary", "btn-secondary");
+                followers.classList.add("following");
             }
             else{
                 followers.innerHTML = 'Follow'
-                followers.classList.replace("btn-secondary", "btn-primary");
+                followers.classList.remove("following");
 
             }
             document.querySelector("#followers-count").textContent = data.followers_count;
